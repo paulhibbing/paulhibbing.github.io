@@ -43,26 +43,64 @@
 							<div class="col-12">
 
 								<section>
-									<p>Usability and dissemination are crucial aspects of method development.
-									Some of my main tools in that vein are the
-									<a href="https://www.r-project.org/">R Statistical Programming Language</a>,
-									<a href="git-scm.com">git</a>,
-									and <a href="https://github.com/paulhibbing">GitHub</a>,
-									all of which allow me to standardize the way I develop, disseminate, and maintain
-									new tools I create.</p>
+									<h2>Below are a few of the tools I have created for the
+									<a href="https://www.r-project.org/">R Statistical Programming Language</a>:
+									</h2>
 
-									<p>In addition to using these tools, I have promoted their uptake in the field by 
-									<a href="https://ismpb.org/wp-content/uploads/2019/06/ICAMPAM-2019-program-107-web.pdf">presenting</a> and
-									<a href="https://journals.humankinetics.com/view/journals/jmpb/4/3/article-p197.xml">publishing</a>
-									on their power and potential for accelerating our progress.
+									<h1>The Transition Pairing Method</h1>
+									   <p style="padding: 0.5em 0 0.5em 0; line-height: 3vh;">
+								  	   This is a method for assessing the accuracy of
+									   <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5464762/">change point detection (CPD)</a> algorithms.
+									   It uses an extended <a href="https://www.jstor.org/stable/2312726?origin=crossref">Gale-Shapley</a> algorithm
+									   to address the complex problem of defining true/false positives in the CPD setting. You can find the method in
+									   my <a href="https://cran.r-project.org/package=PAutilities">PAutilities</a> package (see
+									   <a href="https://github.com/paulhibbing/PAutilities">GitHub</a> for the development version). You can also learn
+									   more about the code (and how to implement it) in the associated
+									   <a href="https://cran.r-project.org/web/packages/PAutilities/vignettes/tpm.html">vignette</a>. The method
+									   is fully explained in my <a href="https://journals.humankinetics.com/view/journals/jmpb/3/3/article-p219.xml">2020 paper</a>.
+									   </p>
 
-									<p>Here are some of the tools I have created, with links to packages and vignettes.</p>
-								</section>
+									<h1>Two-Regression Energy Expenditure Models</h1>
+									   <p style="padding: 0.5em 0 0.5em 0; line-height: 3vh;">
+									   These are 15 models that predict energy expenditure through a sophisticated pipeline. The models are for
+									   <a href="https://actigraphcorp.com/actigraph-link/">ActiGraph GT9X</a> monitors worn on the hip, left wrist,
+									   right wrist, left ankle, or right ankle. For each of those locations, there are three models (accelerometer only,
+									   accelerometer+gyroscope, and accelerometer+gyroscope+magnetometer). The pipeline starts by classifying each data
+									   point as sedentary behavior, ambulation, or lifestyle activity. Energy expenditure is then predicted by means that
+									   differ depending on the prior classification (a constant value for sedentary behavior, a linear regression equation
+									   for ambulation, and a cubic regression equation for lifestyle activities). Like the Transition Pairing Method,
+									   you can find this method in an <a href="https://cran.r-project.org/package=TwoRegression">R package</a> (with a
+									   <a href="https://github.com/paulhibbing/TwoRegression">development version</a> on GitHub), along with a
+								   	   <a href="https://cran.r-project.org/web/packages/TwoRegression/vignettes/TwoRegression.html">vignette</a> that
+									   walks through the code, and a <a href="https://journals.lww.com/acsm-msse/Fulltext/2018/05000/Estimating_Energy_Expenditure_with_ActiGraph_GT9X.24.aspx">paper</a>
+									   that has full detail.
+									   </p>
 
-								<section>
-									<h2>The Transition Pairing Method</h2>
-									<p>You can read more about this <a href="https://cran.r-project.org/web/packages/PAutilities/vignettes/tpm.html">here</a>
-										and <a href="https://journals.humankinetics.com/view/journals/jmpb/3/3/article-p219.xml">here</a>.</p>
+									<h1>Sedentary Profiles</h1>
+									   <p style="padding: 0.5em 0 0.5em 0; line-height: 3vh;">
+									   This is a pattern recognition-based approach to looking at patterns of sedentary behavior (e.g., accumulation in short versus long bouts).
+									   We used data from the
+									   <a href="https://wwwn.cdc.gov/nchs/nhanes/continuousnhanes/default.aspx?BeginYear=2003">National Health and Nutrition Examination Survey</a> to perform
+									   a clustering analysis
+									   that identified three profiles, which we called the Interrupted, Intermediate, and Prolonged profiles. The purpose of this was to address statistical
+									   challenges in temporal analysis, as well as to increase the interpretability and actionability of the variables. The <a href="https://journals.lww.com/acsm-msse/Abstract/2022/04000/Sedentary_Profiles__A_New_Perspective_on.18.aspx">paper</a>
+									   was recently published, and you can view <a href="https://github.com/paulhibbing/SBprofiles/tree/main/manuscript_code">all of the code that went into it</a>
+									   (including for the sample analysis of cardiovascular disease risk) on GitHub.
+									   You can also implement it through the <a href="https://github.com/paulhibbing/PBpatterns">R package</a> (GitHub only), and there is a PDF vignette
+									   (<a href="https://github.com/paulhibbing/PBpatterns/blob/main/vignettes/SBprofiles.pdf">view</a> or
+								 	   <a href="https://github.com/paulhibbing/PBpatterns/raw/main/vignettes/SBprofiles.pdf">download</a>) to help with coding.
+									   </p>
+
+									<h1>Sojourn Models</h1>
+									   <p style="padding: 0.5em 0 0.5em 0; line-height: 3vh;">
+									   These models predict physical activity outcomes (energy expenditure for adults and activity intensity for youth) using a form
+									   of change point detection combined with neural networks and hand-built decision trees. The first models were published by
+									   <a href="https://journals.lww.com/acsm-msse/Fulltext/2014/02000/A_Method_to_Estimate_Free_Living_Active_and.22.aspx">Lyden et al.</a> and
+									   <a href="https://journals.lww.com/acsm-msse/Fulltext/2016/08000/Validity_of_an_Integrative_Method_for_Processing.24.aspx">Ellingson et al.</a>,
+									   before I introduced the <a href="https://journals.lww.com/acsm-msse/Fulltext/2018/04000/Adapted_Sojourn_Models_to_Estimate_Activity.26.aspx">youth-specific models</a>
+									   and assembled everything into an <a href="https://cran.r-project.org/web/packages/Sojourn/index.html">R package</a> (development version on
+									   <a href="https://github.com/paulhibbing/Sojourn">GitHub</a>).
+									   </p>
 								</section>
 
 							</div>
