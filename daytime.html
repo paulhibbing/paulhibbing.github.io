@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<!-- saved from url=(0107)file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<meta name="generator" content="pandoc">
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Paul R. Hibbing">
+
+
+<title>Descriptive Metrics With daytime</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+<script type="text/javascript" src="./daytime_files/MathJax.js.download"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+<body><div id="MathJax_Message" style="display: none;"></div>
+
+
+
+
+<h1 class="title toc-ignore">Descriptive Metrics With
+<code>daytime</code></h1>
+<h4 class="author">Paul R. Hibbing</h4>
+
+
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>One of the major capabilities of the <code>daytime</code> package
+surrounds calculation of meaningful descriptive metrics for circular
+(i.e., daytime) data. As an illustrative scenario, let us assume we have
+a vector of timestamps, which we wish to summarize.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-2"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb1-2" aria-hidden="true" tabindex="-1"></a>timestamps <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1-3"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"10:34:06"</span>, <span class="st">"11:53:23"</span>, <span class="st">"08:20:46"</span>, <span class="st">"12:16:05"</span>, <span class="st">"13:02:51"</span>,</span>
+<span id="cb1-4"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"12:45:48"</span>, <span class="st">"10:15:58"</span>, <span class="st">"13:58:50"</span>, <span class="st">"12:13:54"</span>, <span class="st">"12:44:06"</span>,</span>
+<span id="cb1-5"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"13:10:09"</span>, <span class="st">"12:07:28"</span>, <span class="st">"14:16:43"</span>, <span class="st">"10:26:01"</span>, <span class="st">"10:19:23"</span>,</span>
+<span id="cb1-6"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"10:33:04"</span>, <span class="st">"11:14:41"</span>, <span class="st">"10:39:40"</span>, <span class="st">"09:41:24"</span>, <span class="st">"13:35:08"</span>,</span>
+<span id="cb1-7"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"13:53:38"</span>, <span class="st">"11:13:16"</span>, <span class="st">"09:08:14"</span>, <span class="st">"11:47:55"</span>, <span class="st">"13:06:04"</span>,</span>
+<span id="cb1-8"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"10:01:25"</span>, <span class="st">"10:40:07"</span>, <span class="st">"09:39:11"</span>, <span class="st">"08:54:12"</span>, <span class="st">"13:06:01"</span>,</span>
+<span id="cb1-9"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"09:43:35"</span>, <span class="st">"13:00:51"</span>, <span class="st">"12:46:27"</span>, <span class="st">"12:19:23"</span>, <span class="st">"12:17:08"</span>,</span>
+<span id="cb1-10"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"14:33:06"</span>, <span class="st">"12:03:18"</span>, <span class="st">"11:33:20"</span>, <span class="st">"10:27:35"</span>, <span class="st">"12:49:09"</span>,</span>
+<span id="cb1-11"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"10:41:28"</span>, <span class="st">"09:30:26"</span>, <span class="st">"10:07:00"</span>, <span class="st">"10:52:15"</span>, <span class="st">"11:32:56"</span>,</span>
+<span id="cb1-12"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"10:47:48"</span>, <span class="st">"10:42:18"</span>, <span class="st">"07:29:19"</span>, <span class="st">"10:20:52"</span>, <span class="st">"14:31:59"</span>,</span>
+<span id="cb1-13"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"13:14:41"</span>, <span class="st">"09:24:25"</span>, <span class="st">"12:40:12"</span>, <span class="st">"13:24:54"</span>, <span class="st">"11:25:20"</span>, </span>
+<span id="cb1-14"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"09:51:33"</span>, <span class="st">"12:06:54"</span>, <span class="st">"11:00:05"</span>, <span class="st">"10:44:36"</span>, <span class="st">"13:07:10"</span>,</span>
+<span id="cb1-15"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"08:27:44"</span>, <span class="st">"08:43:09"</span>, <span class="st">"10:44:38"</span>, <span class="st">"14:29:52"</span>, <span class="st">"10:46:13"</span></span>
+<span id="cb1-16"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb1-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>We can obtain a visual summary by converting to a
+<code>daytime</code> object and using the associated plot method.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb2-2" aria-hidden="true" tabindex="-1"></a>timestamps <span class="ot">&lt;-</span> daytime<span class="sc">::</span><span class="fu">as_daytime</span>(</span>
+<span id="cb2-3"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb2-3" aria-hidden="true" tabindex="-1"></a>  timestamps, <span class="at">rational =</span> <span class="cn">TRUE</span>, <span class="at">format =</span> <span class="st">"%H:%M:%S"</span></span>
+<span id="cb2-4"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-5"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(timestamps)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" width="85%" style="display: block; margin: auto;"></p>
+<p>But how do we calculate meaningful summary values of central tendency
+and spread for circular data, akin to familiar metrics of mean and SD
+for non-circular data? That is the topic of this vignette.</p>
+</div>
+<div id="examining-central-tendency" class="section level2">
+<h2>Examining central tendency</h2>
+<p>The mean is well defined for circular data, and is nicely discussed
+and illustrated in the article by <a href="https://www.frontiersin.org/article/10.3389/fpsyg.2018.02040">Cremers
+&amp; Klugkist (2018)</a>. It is determined by finding the “mean
+direction” of the points on the circle. In <code>daytime</code>, this is
+coded intuitively, as follows:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(timestamps)</span>
+<span id="cb3-3"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 686.9274</span></span>
+<span id="cb3-4"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,"x")</span></span>
+<span id="cb3-5"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "Circular: 10.6, 11.9,  8.3, 12.3, 13.0, 12.8, 10.3, 14.0, 12.2, 12.7, 13.2, 12.1, 14.3, 10.4, 10.3, 10.6, 11.2, 10.7,  9.7, 13.6, 13.9, 11.2,  9.1, 11.8, 13.1, 10.0, 10.7,  9.7,  8.9, 13.1,  9.7, 13.0, 12.8, 12.3, 12.3, 14.6, 12.1, 11.6, 10.5, 12.8, 10.7,  9.5, 10.1, 10.9, 11.5, 10.8, 10.7,  7.5, 10.3, 14.5, 13.2,  9.4, 12.7, 13.4, 11.4,  9.9, 12.1, 11.0, 10.7, 13.1,  8.5,  8.7, 10.7, 14.5, 10.8"</span></span>
+<span id="cb3-6"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,"rational")</span></span>
+<span id="cb3-7"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb3-8"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,"class")</span></span>
+<span id="cb3-9"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "daytime" "numeric"</span></span></code></pre></div>
+<p>This shows that the mean is roughly the 687<sup>th</sup> minute of
+the day. We can represent this as a string using the time of day
+(<code>tod</code>) function:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb4-2" aria-hidden="true" tabindex="-1"></a>daytime<span class="sc">::</span><span class="fu">tod</span>(</span>
+<span id="cb4-3"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(timestamps)</span>
+<span id="cb4-4"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb4-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-5"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "11:26:55"</span></span>
+<span id="cb4-6"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,"x")</span></span>
+<span id="cb4-7"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "Circular: 10.6, 11.9,  8.3, 12.3, 13.0, 12.8, 10.3, 14.0, 12.2, 12.7, 13.2, 12.1, 14.3, 10.4, 10.3, 10.6, 11.2, 10.7,  9.7, 13.6, 13.9, 11.2,  9.1, 11.8, 13.1, 10.0, 10.7,  9.7,  8.9, 13.1,  9.7, 13.0, 12.8, 12.3, 12.3, 14.6, 12.1, 11.6, 10.5, 12.8, 10.7,  9.5, 10.1, 10.9, 11.5, 10.8, 10.7,  7.5, 10.3, 14.5, 13.2,  9.4, 12.7, 13.4, 11.4,  9.9, 12.1, 11.0, 10.7, 13.1,  8.5,  8.7, 10.7, 14.5, 10.8"</span></span>
+<span id="cb4-8"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,"rational")</span></span>
+<span id="cb4-9"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+<p>Notably, this differs from the result we get when taking the
+non-circular mean:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb5-2" aria-hidden="true" tabindex="-1"></a>daytime<span class="sc">::</span><span class="fu">tod</span>(</span>
+<span id="cb5-3"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(</span>
+<span id="cb5-4"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.numeric</span>(timestamps)</span>
+<span id="cb5-5"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb5-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-6"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-7"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: Setting `rational` to TRUE</span></span>
+<span id="cb5-8"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "11:26:47"</span></span>
+<span id="cb5-9"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,"x")</span></span>
+<span id="cb5-10"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 686.7872</span></span>
+<span id="cb5-11"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,"rational")</span></span>
+<span id="cb5-12"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+<p>Overall, the mean is not too much trouble to work with, and we can
+see that it does a pretty intuitive job of showing central tendency
+among the data points.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(timestamps)</span>
+<span id="cb6-3"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb6-4" aria-hidden="true" tabindex="-1"></a>mean_radians <span class="ot">&lt;-</span></span>
+<span id="cb6-5"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>(<span class="fu">mean</span>(timestamps)) <span class="sc">/</span></span>
+<span id="cb6-6"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="sc">-</span><span class="dv">1440</span>  <span class="sc">*</span> <span class="do">## Fraction of the circle (clockwise)</span></span>
+<span id="cb6-7"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span> <span class="sc">*</span> pi <span class="sc">+</span> <span class="do">## Convert to radians</span></span>
+<span id="cb6-8"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb6-8" aria-hidden="true" tabindex="-1"></a>  (pi <span class="sc">/</span> <span class="dv">2</span>) <span class="do">## Rotate to match the clock</span></span>
+<span id="cb6-9"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(</span>
+<span id="cb6-11"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">x0 =</span> <span class="dv">0</span>, <span class="at">y0 =</span> <span class="dv">0</span>,</span>
+<span id="cb6-12"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">x1 =</span> <span class="fu">cos</span>(mean_radians),</span>
+<span id="cb6-13"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">y1 =</span> <span class="fu">sin</span>(mean_radians),</span>
+<span id="cb6-14"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"#E66100"</span>,</span>
+<span id="cb6-15"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="fl">4.5</span></span>
+<span id="cb6-16"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb6-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" width="85%" style="display: block; margin: auto;"></p>
+</div>
+<div id="what-about-variability" class="section level2">
+<h2>What about variability?</h2>
+<p>With circular data, it is harder to capture variability than central
+tendency. Several metrics exist to capture variability, but none are in
+the original units of measurement. We can circumvent this by inventing
+new metrics, but it is important to note that their descriptive utility
+may not correspond to statistical utility the way similar metrics (e.g.,
+SD) do for non-circular data.</p>
+<p><code>daytime</code> provides several options for looking at
+variation in the data, and this is accomplished using an object-oriented
+approach to the <code>sd</code> function in R. When you call
+<code>sd</code> on a <code>daytime</code> object, the function
+<code>daytime:::sd.daytime</code> is called. This function allows you to
+specify the desired units (“min” or “hr”), and the desired method for
+calculation. Using the <code>type</code> argument, you can choose from
+these three:</p>
+<ul>
+<li><p><strong>MSD:</strong> This is the default option, which stands
+for ‘mean shorter distance’. Essentially, we want to measure the mean
+distance between each of the individual data points and the overall
+circular mean. Each of the individual distances can be calculated going
+clockwise or counterclockwise around the circle, and the MSD method
+takes whichever option gives the shorter distance. Thus, the mean
+distance reflects the mean of the ‘shorter’ individual
+distances.</p></li>
+<li><p><strong>SRL:</strong> This stands for ‘scaled resultant length’.
+In Section 3.3 of <a href="https://www.frontiersin.org/article/10.3389/fpsyg.2018.02040">Cremers
+&amp; Klugkist (2018)</a>, they show that the “mean resultant length” is
+an indicator of variability. If all circular values are identical, there
+is no variability in the data, and the mean resultant length is 1. If
+data are evenly split on opposite sides of the circle, the data are
+maximally variable, and the mean resultant length is 0. The idea of the
+SRL metric is, by straightforward scaling, to map this range of
+variabilities (from 0 to 1) onto the equivalent range in units of
+measure (0 to 12 hours, or 0 to 770 minutes).</p></li>
+<li><p><strong>circular:</strong> This method simply invokes the
+<code>sd</code> method for circular data, based on code in the
+<code>circular</code> package. For more information, see
+<code>?circular::sd.circular</code>.</p></li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-2"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(timestamps, <span class="at">units =</span> <span class="st">"hr"</span>, <span class="at">type =</span> <span class="st">"MSD"</span>)</span>
+<span id="cb7-3"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1.404713</span></span>
+<span id="cb7-4"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,"x")</span></span>
+<span id="cb7-5"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  52.827356  26.455978 186.160689  49.155978  95.922644  78.872644</span></span>
+<span id="cb7-6"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7]  70.960689 151.905978  46.972644  77.172644 103.222644  40.539311</span></span>
+<span id="cb7-7"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] 169.789311  60.910689  67.544022  53.860689  12.244022  47.260689</span></span>
+<span id="cb7-8"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [19] 105.527356 128.205978 146.705978  13.660689 138.694022  20.989311</span></span>
+<span id="cb7-9"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [25]  99.139311  85.510689  46.810689 107.744022 152.727356  99.089311</span></span>
+<span id="cb7-10"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [31] 103.344022  93.922644  79.522644  52.455978  50.205978 186.172644</span></span>
+<span id="cb7-11"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [37]  36.372644   6.405978  59.344022  82.222644  45.460689 116.494022</span></span>
+<span id="cb7-12"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [43]  79.927356  34.677356   6.005978  39.127356  44.627356 237.610689</span></span>
+<span id="cb7-13"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [49]  66.060689 185.055978 107.755978 122.510689  73.272644 117.972644</span></span>
+<span id="cb7-14"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [55]   1.594022  95.377356  39.972644  26.844022  42.327356 100.239311</span></span>
+<span id="cb7-15"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [61] 179.194022 163.777356  42.294022 182.939311  40.710689</span></span>
+<span id="cb7-16"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,"x")attr(,"rational")</span></span>
+<span id="cb7-17"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb7-18"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,"rational")</span></span>
+<span id="cb7-19"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb7-20"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,"class")</span></span>
+<span id="cb7-21"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "daytime" "numeric"</span></span>
+<span id="cb7-22"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(timestamps, <span class="at">units =</span> <span class="st">"min"</span>, <span class="at">type =</span> <span class="st">"MSD"</span>)</span>
+<span id="cb7-24"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 84.2828</span></span>
+<span id="cb7-25"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,"x")</span></span>
+<span id="cb7-26"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  52.827356  26.455978 186.160689  49.155978  95.922644  78.872644</span></span>
+<span id="cb7-27"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7]  70.960689 151.905978  46.972644  77.172644 103.222644  40.539311</span></span>
+<span id="cb7-28"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] 169.789311  60.910689  67.544022  53.860689  12.244022  47.260689</span></span>
+<span id="cb7-29"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [19] 105.527356 128.205978 146.705978  13.660689 138.694022  20.989311</span></span>
+<span id="cb7-30"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [25]  99.139311  85.510689  46.810689 107.744022 152.727356  99.089311</span></span>
+<span id="cb7-31"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [31] 103.344022  93.922644  79.522644  52.455978  50.205978 186.172644</span></span>
+<span id="cb7-32"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [37]  36.372644   6.405978  59.344022  82.222644  45.460689 116.494022</span></span>
+<span id="cb7-33"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [43]  79.927356  34.677356   6.005978  39.127356  44.627356 237.610689</span></span>
+<span id="cb7-34"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [49]  66.060689 185.055978 107.755978 122.510689  73.272644 117.972644</span></span>
+<span id="cb7-35"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [55]   1.594022  95.377356  39.972644  26.844022  42.327356 100.239311</span></span>
+<span id="cb7-36"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [61] 179.194022 163.777356  42.294022 182.939311  40.710689</span></span>
+<span id="cb7-37"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,"x")attr(,"rational")</span></span>
+<span id="cb7-38"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb7-39"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,"rational")</span></span>
+<span id="cb7-40"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb7-41"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,"class")</span></span>
+<span id="cb7-42"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "daytime" "numeric"</span></span>
+<span id="cb7-43"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-44"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-45"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(timestamps, <span class="at">units =</span> <span class="st">"hr"</span>, <span class="at">type =</span> <span class="st">"SRL"</span>)</span>
+<span id="cb7-46"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1.09163</span></span>
+<span id="cb7-47"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-48"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(timestamps, <span class="at">units =</span> <span class="st">"min"</span>, <span class="at">type =</span> <span class="st">"SRL"</span>)</span>
+<span id="cb7-49"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 65.49778</span></span>
+<span id="cb7-50"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-51"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-52"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="do">## `units` argument is not relevant for the `circular` method</span></span>
+<span id="cb7-53"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-53" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(timestamps, <span class="at">type =</span> <span class="st">"circular"</span>)</span>
+<span id="cb7-54"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb7-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2.008734</span></span></code></pre></div>
+</div>
+<div id="examining-mean-and-variability-together" class="section level2">
+<h2>Examining mean and variability together</h2>
+<p>Through the <code>PAutilities</code> package, we can summarize mean
+and variability together, as follows:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-2"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">## The below code will only run if the PAutilities package is installed</span></span>
+<span id="cb8-3"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!!</span><span class="fu">requireNamespace</span>(<span class="st">"PAutilities"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb8-4"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-5"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-5" aria-hidden="true" tabindex="-1"></a>  PAutilities<span class="sc">::</span><span class="fu">mean_sd</span>(</span>
+<span id="cb8-6"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-6" aria-hidden="true" tabindex="-1"></a>    timestamps, <span class="at">units =</span> <span class="st">"hr"</span>, <span class="at">method =</span> <span class="st">"SRL"</span>,</span>
+<span id="cb8-7"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">digits =</span> <span class="dv">1</span>, <span class="at">nsmall =</span> <span class="dv">1</span></span>
+<span id="cb8-8"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-9"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-10"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-11"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       mean       sd     sum_string</span></span>
+<span id="cb8-12"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 686.9274 1.404713 11:26:55 ± 1.4</span></span>
+<span id="cb8-13"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="do">## The below code will only run if the PAutilities package is installed</span></span>
+<span id="cb8-17"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!!</span><span class="fu">requireNamespace</span>(<span class="st">"PAutilities"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb8-18"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-19"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-19" aria-hidden="true" tabindex="-1"></a>  PAutilities<span class="sc">::</span><span class="fu">mean_sd</span>(</span>
+<span id="cb8-20"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-20" aria-hidden="true" tabindex="-1"></a>    timestamps, <span class="at">units =</span> <span class="st">"min"</span>, <span class="at">method =</span> <span class="st">"MSD"</span>,</span>
+<span id="cb8-21"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">give_df =</span> <span class="cn">FALSE</span>, <span class="at">digits =</span> <span class="dv">1</span>, <span class="at">nsmall =</span> <span class="dv">1</span></span>
+<span id="cb8-22"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-23"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-24"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-24" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-25"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpKkZJTY/preview-56d42aa17f88.dir/daytime_descriptives.html#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "11:26:55 ± 84.3"</span></span></code></pre></div>
+</div>
+<div id="conclusion" class="section level2">
+<h2>Conclusion</h2>
+<p>In this vignette, we have discussed how to calculate descriptive
+metrics for circular (i.e., <code>daytime</code>) data. Although the
+descriptive utility is not necessarily coupled with statistical utility
+the way it is for non-circular data, these features of the
+<code>daytime</code> package are nevertheless valuable for adding
+context to investigations of circular data.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+
+</body></html>
