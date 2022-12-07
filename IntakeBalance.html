@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<!-- saved from url=(0100)file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<meta name="generator" content="pandoc">
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<title>Using the IntakeBalance Package</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+<script type="text/javascript" src="./IntakeBalance_files/MathJax.js.download"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+<body><div id="MathJax_Message" style="display: none;"></div>
+
+
+
+
+<h1 class="title toc-ignore">Using the <code>IntakeBalance</code>
+Package</h1>
+
+
+
+<p><code>IntakeBalance</code> is an R package to help with implementing
+intake-balance methods for assessing energy intake (EI). In this
+vignette, we will demonstrate how to do this using an
+accelerometer-based approach.</p>
+<p>We realize this might seem like an intimidating tool, since most
+potential users are not R programmers. Although it’s true that we can
+currently only provide support for using this tool in R, we want to make
+it as accessible as possible. On this page, our goal is to provide
+thorough instructions that will demystify the process and limit how
+intimidating it feels. But we also recognize there may be areas where
+things need to be clearer. If you find anything confusing, please feel
+free to <a href="https://github.com/paulhibbing/IntakeBalance/issues/new/choose">let
+us know by filing an issue</a>, and we will do our best to revise in a
+way that makes these instructions easier to follow.</p>
+<div id="prerequisites" class="section level2">
+<h2>Prerequisites</h2>
+<p>Before you can use <code>IntakeBalance</code>, you need to get your
+machine set up. The first step is to <a href="https://cran.r-project.org/">install R</a> if you haven’t already.
+We also recommend <a href="https://posit.co/download/rstudio-desktop/">installing
+RStudio</a>. The default settings should do the trick, so you can just
+run the installers. Then open up RStudio and prepare to run some code in
+the console. (The bottom left pane. Code can be pasted in like it would
+in a document. Then press <code>[enter]</code> to execute the code.)</p>
+<p>The next task is to install the <code>IntakeBalance</code> package.
+This could be done much more concisely than what’s shown in the code
+below, but we’re going to go the long way in hopes of avoiding any
+breakdowns that might occur. (Sometimes things work differently
+depending on your specific computer setup or prior installation of R, so
+this longer approach helps us to [hopefully] account for that.) Just
+copy, paste, and execute all of the following code:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## List the required packages to install from mainstream R archive</span></span>
+<span id="cb1-2"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-2" aria-hidden="true" tabindex="-1"></a>cran_packages <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1-3"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"digest"</span>, <span class="st">"dplyr"</span>, <span class="st">"knitr"</span>, <span class="st">"lubridate"</span>, <span class="st">"magrittr"</span>,</span>
+<span id="cb1-4"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"nnet"</span>, <span class="st">"PAutilities"</span>, <span class="st">"PhysActBedRest"</span>, <span class="st">"PhysicalActivity"</span>,</span>
+<span id="cb1-5"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"purrr"</span>, <span class="st">"randomForest"</span>, <span class="st">"read.gt3x"</span>, <span class="st">"devtools"</span>, <span class="st">"rmarkdown"</span>,</span>
+<span id="cb1-6"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"rlang"</span>, <span class="st">"Sojourn"</span>, <span class="st">"stats"</span>, <span class="st">"testthat"</span>, <span class="st">"tidyr"</span>, <span class="st">"tree"</span>,</span>
+<span id="cb1-7"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"TwoRegression"</span>, <span class="st">"units"</span>, <span class="st">"utils"</span>, <span class="st">"xml2"</span></span>
+<span id="cb1-8"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-9"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Install any of the previous packages that aren't already installed</span></span>
+<span id="cb1-12"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">lapply</span>(</span>
+<span id="cb1-13"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-13" aria-hidden="true" tabindex="-1"></a>  cran_packages,</span>
+<span id="cb1-14"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">function</span>(x) <span class="cf">if</span> (<span class="sc">!</span><span class="fu">isTRUE</span>(<span class="fu">requireNamespace</span>(x, <span class="at">quietly =</span> <span class="cn">TRUE</span>)))</span>
+<span id="cb1-15"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(x)</span>
+<span id="cb1-16"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-16" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb1-17"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="do">## List the required packages to install from GitHub</span></span>
+<span id="cb1-20"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-20" aria-hidden="true" tabindex="-1"></a>remote_packages <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1-21"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">"paulhibbing/anthropometry"</span>, <span class="st">"paulhibbing/accelEE"</span>,</span>
+<span id="cb1-22"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="st">"paulhibbing/EE.Data"</span>, <span class="st">"paulhibbing/IntakeBalance"</span></span>
+<span id="cb1-23"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-24"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="do">## Install any of the GitHub packages that aren't already installed</span></span>
+<span id="cb1-27"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">lapply</span>(</span>
+<span id="cb1-28"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-28" aria-hidden="true" tabindex="-1"></a>  remote_packages,</span>
+<span id="cb1-29"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="cf">function</span>(x) <span class="cf">if</span> (<span class="sc">!</span><span class="fu">isTRUE</span>(<span class="fu">requireNamespace</span>(x, <span class="at">quietly =</span> <span class="cn">TRUE</span>)))</span>
+<span id="cb1-30"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-30" aria-hidden="true" tabindex="-1"></a>    devtools<span class="sc">::</span><span class="fu">install_github</span>(x, <span class="at">dependencies =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-31"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-31" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb1-32"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="do">## Install one other package using a different method,</span></span>
+<span id="cb1-35"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="do">## if it hasn't already been installed</span></span>
+<span id="cb1-36"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"AGread"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb1-38"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb1-38" aria-hidden="true" tabindex="-1"></a>  devtools<span class="sc">::</span><span class="fu">install_version</span>(<span class="st">"AGread"</span>, <span class="st">"1.3.2"</span>)</span></code></pre></div>
+<p>Once you’ve finished the above, you’re ready to look at an example of
+using the <code>IntakeBalance</code> package.</p>
+</div>
+<div id="basic-usage" class="section level2">
+<h2>Basic Usage</h2>
+<p>The core of <code>IntakeBalance</code> is an eponymous function that
+simply calculates EI based on information about energy expenditure and
+changes in body composition. As shown below, the function runs in two
+ways depending on what information you supply. You can read more about
+this in the function documentation – Just run <br>
+<code>?IntakeBalance::IntakeBalance</code>.</p>
+<p>Let’s look at some imaginary data to show both ways this can
+work.</p>
+<div id="option-1.-the-vector-method" class="section level4">
+<h4>Option 1. The vector method</h4>
+<p>This is designed for making calculations when you’re directly passing
+in data values for the requested pieces of information (i.e.,
+“parameters” or “arguments”). It looks like this:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Generate the result</span></span>
+<span id="cb2-2"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb2-2" aria-hidden="true" tabindex="-1"></a>vector_result <span class="ot">&lt;-</span> IntakeBalance<span class="sc">::</span><span class="fu">IntakeBalance</span>(</span>
+<span id="cb2-3"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">fm_start =</span> <span class="fl">50.5</span>,   <span class="do">## Fat mass at the start of the measurement period</span></span>
+<span id="cb2-4"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">fm_end =</span> <span class="fl">50.7</span>,     <span class="do">## Fat mass at the end of the measurement period</span></span>
+<span id="cb2-5"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ffm_start =</span> <span class="fl">75.1</span>,  <span class="do">## Fat-free mass at the start of the measurement period</span></span>
+<span id="cb2-6"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ffm_end =</span> <span class="fl">74.9</span>,    <span class="do">## Fat-free mass at the end of the measurement period</span></span>
+<span id="cb2-7"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">fm_units =</span> <span class="st">"kg"</span>,   <span class="do">## Units of measure for the fat mass value</span></span>
+<span id="cb2-8"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">ffm_units =</span> <span class="st">"kg"</span>,  <span class="do">## Units of measure for the fat-free mass value</span></span>
+<span id="cb2-9"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">ee_per_day =</span> <span class="dv">1950</span>, <span class="do">## Daily energy expenditure</span></span>
+<span id="cb2-10"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">ee_units =</span> <span class="st">"kcal"</span>, <span class="do">## Units of measure for the daily energy expenditure value</span></span>
+<span id="cb2-11"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_days =</span> <span class="dv">14</span>        <span class="do">## Number of days between the start and end measurements</span></span>
+<span id="cb2-12"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb2-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-13"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Show the result</span></span>
+<span id="cb2-15"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb2-15" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(vector_result)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2071.143</td>
+</tr>
+</tbody>
+</table>
+<p>This tells us that calculated EI was 2071 kcal/day.</p>
+</div>
+<div id="option-2.-the-data-frame-method" class="section level4">
+<h4>Option 2. The data frame method</h4>
+<p>This is designed for making calculations when you have data for
+multiple individuals stored in a data frame. To show how it works, we
+first need to create some imaginary data:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Create the data frame</span></span>
+<span id="cb3-2"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb3-2" aria-hidden="true" tabindex="-1"></a>info <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb3-3"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">PID =</span> <span class="fu">c</span>(<span class="st">"001"</span>, <span class="st">"002"</span>),</span>
+<span id="cb3-4"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">fm_start =</span> <span class="fu">c</span>(<span class="fl">50.5</span>, <span class="fl">70.2</span>), <span class="at">fm_end =</span> <span class="fu">c</span>(<span class="fl">50.7</span>, <span class="fl">70.0</span>),</span>
+<span id="cb3-5"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ffm_start =</span> <span class="fu">c</span>(<span class="fl">75.1</span>, <span class="fl">90.3</span>), <span class="at">ffm_end =</span> <span class="fu">c</span>(<span class="fl">74.9</span>, <span class="fl">90.3</span>),</span>
+<span id="cb3-6"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ee =</span> <span class="fu">c</span>(<span class="dv">1950</span>, <span class="dv">2473</span>), <span class="at">n_days =</span> <span class="fu">c</span>(<span class="dv">14</span>, <span class="dv">14</span>)</span>
+<span id="cb3-7"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb3-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-8"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Show the data frame</span></span>
+<span id="cb3-10"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb3-10" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(info)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">PID</th>
+<th align="right">fm_start</th>
+<th align="right">fm_end</th>
+<th align="right">ffm_start</th>
+<th align="right">ffm_end</th>
+<th align="right">ee</th>
+<th align="right">n_days</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">001</td>
+<td align="right">50.5</td>
+<td align="right">50.7</td>
+<td align="right">75.1</td>
+<td align="right">74.9</td>
+<td align="right">1950</td>
+<td align="right">14</td>
+</tr>
+<tr class="even">
+<td align="left">002</td>
+<td align="right">70.2</td>
+<td align="right">70.0</td>
+<td align="right">90.3</td>
+<td align="right">90.3</td>
+<td align="right">2473</td>
+<td align="right">14</td>
+</tr>
+</tbody>
+</table>
+<p>Now let’s calculate EI:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Generate the result</span></span>
+<span id="cb4-2"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb4-2" aria-hidden="true" tabindex="-1"></a>df_result <span class="ot">&lt;-</span> IntakeBalance<span class="sc">::</span><span class="fu">IntakeBalance</span>(</span>
+<span id="cb4-3"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb4-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-4"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="do">## These arguments still refer to the same information outlined previously,</span></span>
+<span id="cb4-5"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="do">## but now we have added a layer of abstraction to reference the names of</span></span>
+<span id="cb4-6"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="do">## columns where that information is stored, rather than providing the</span></span>
+<span id="cb4-7"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="do">## values themselves</span></span>
+<span id="cb4-8"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">fm_start =</span> <span class="st">"fm_start"</span>,</span>
+<span id="cb4-9"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">fm_end =</span> <span class="st">"fm_end"</span>,</span>
+<span id="cb4-10"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">ffm_start =</span> <span class="st">"ffm_start"</span>,</span>
+<span id="cb4-11"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ffm_end =</span> <span class="st">"ffm_end"</span>,</span>
+<span id="cb4-12"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">ee_per_day =</span> <span class="st">"ee"</span>,</span>
+<span id="cb4-13"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_days =</span> <span class="st">"n_days"</span>,</span>
+<span id="cb4-14"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb4-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-15"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="do">## The trick is to pass in a data frame via this extra argument. That's how R</span></span>
+<span id="cb4-16"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="do">## knows to interpret the other variables as column names rather than raw values</span></span>
+<span id="cb4-17"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">df =</span> info</span>
+<span id="cb4-18"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb4-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-19"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb4-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-20"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="do">## Show the result</span></span>
+<span id="cb4-22"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb4-22" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(df_result)</span></code></pre></div>
+<table>
+<colgroup>
+<col width="5%">
+<col width="13%">
+<col width="10%">
+<col width="14%">
+<col width="11%">
+<col width="7%">
+<col width="10%">
+<col width="14%">
+<col width="13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">PID</th>
+<th align="right">fm_start</th>
+<th align="right">fm_end</th>
+<th align="right">ffm_start</th>
+<th align="right">ffm_end</th>
+<th align="right">ee</th>
+<th align="right">n_days</th>
+<th align="right">delta_ES</th>
+<th align="right">EI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">001</td>
+<td align="right">50.5</td>
+<td align="right">50.7</td>
+<td align="right">75.1</td>
+<td align="right">74.9</td>
+<td align="right">1950</td>
+<td align="right">14</td>
+<td align="right">121.1429</td>
+<td align="right">2071.143</td>
+</tr>
+<tr class="even">
+<td align="left">002</td>
+<td align="right">70.2</td>
+<td align="right">70.0</td>
+<td align="right">90.3</td>
+<td align="right">90.3</td>
+<td align="right">2473</td>
+<td align="right">14</td>
+<td align="right">-135.7143</td>
+<td align="right">2337.286</td>
+</tr>
+</tbody>
+</table>
+<p>You can see that this returns the original data frame, updated with
+new columns that indicate the change in energy storage
+(<code>delta_ES</code>) and the EI values. Furthermore, you can see that
+the values in the first row of <code>info</code> match with what was
+provided in the example for Option 1. Cool!</p>
+</div>
+</div>
+<div id="making-this-work-with-data-from-wearables" class="section level2">
+<h2>Making this Work with Data from Wearables</h2>
+<p>The above examples demonstrated the core functionality of the
+<code>IntakeBalance</code> package. But things get more powerful when we
+combine this with other packages to help with wrangling wearable data
+and incorporating it into the intake-balance framework. Here, we will
+show how you could use the <code>accelEE</code> package to process an
+ActiGraph file using the same methods from our doubly labeled water
+study. Unfortunately, the code is designed for combining
+<code>gt3x</code> and <code>agd</code> files (raw acceleration and
+activity count formats, respectively) that each contain at least one
+full day of data. This is an issue because sample files tend to be small
+and only available in one format. So, throughout the code below, you
+will see some extra steps we need to take, just to create a large,
+properly-formatted, illustration-ready dataset that plays nicely with
+the code. Don’t let this throw you off. We’ll tell you whenever this
+these extraneous steps are happening, and you won’t need to worry about
+them when dealing with your own data from the real world.</p>
+<p>The accelerometer-based intake-balance process unfolds in three
+phases outlined below.</p>
+<div id="phase-1.-reading-and-pre-formatting-the-wearable-data" class="section level4">
+<h4>Phase 1. Reading and pre-formatting the wearable data</h4>
+<p>The first step is to read a “raw data” file (<code>gt3x</code>
+extension) into R. We’ll use one that was built in with one of the
+packages we installed at the beginning. It only contains 40 min of data,
+so we’ll copy it several times and pretend it spans several days
+instead.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Find the file</span></span>
+<span id="cb5-3"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb5-3" aria-hidden="true" tabindex="-1"></a>filename <span class="ot">&lt;-</span> <span class="fu">system.file</span>(</span>
+<span id="cb5-4"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"extdata/TAS1H30182785_2019-09-17.gt3x"</span>,</span>
+<span id="cb5-5"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">package =</span> <span class="st">"read.gt3x"</span></span>
+<span id="cb5-6"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-7"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Read the file using the `accelEE` package</span></span>
+<span id="cb5-9"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb5-9" aria-hidden="true" tabindex="-1"></a>ex_data <span class="ot">&lt;-</span> accelEE<span class="sc">::</span><span class="fu">ee_file</span>(<span class="at">filename =</span> filename, <span class="at">scheme =</span> <span class="st">"Hibbing 2023"</span>)</span>
+<span id="cb5-10"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Extend the data file for the sake of illustration</span></span>
+<span id="cb5-12"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="do">## (ignore this part when processing real-world data)</span></span>
+<span id="cb5-13"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb5-13" aria-hidden="true" tabindex="-1"></a>ex_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb5-14"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">Timestamp =</span> ex_data<span class="sc">$</span>Timestamp[<span class="dv">1</span>] <span class="sc">+</span> (<span class="dv">60</span><span class="sc">*</span><span class="dv">0</span><span class="sc">:</span><span class="dv">3199</span>),</span>
+<span id="cb5-15"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">do.call</span>(rbind, <span class="fu">replicate</span>(<span class="dv">80</span>, ex_data[ ,<span class="sc">-</span><span class="dv">1</span>], <span class="at">simplify =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb5-16"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb5-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-17"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="do">## Show some of the contents</span></span>
+<span id="cb5-19"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb5-19" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(dplyr<span class="sc">::</span><span class="fu">select</span>(ex_data, <span class="sc">!</span><span class="fu">matches</span>(<span class="st">"features"</span>))))</span></code></pre></div>
+<table>
+<colgroup>
+<col width="9%">
+<col width="7%">
+<col width="7%">
+<col width="7%">
+<col width="4%">
+<col width="4%">
+<col width="8%">
+<col width="9%">
+<col width="6%">
+<col width="6%">
+<col width="6%">
+<col width="6%">
+<col width="7%">
+<col width="7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Timestamp</th>
+<th align="right">Accelerometer_X</th>
+<th align="right">Accelerometer_Y</th>
+<th align="right">Accelerometer_Z</th>
+<th align="right">vm_raw_g</th>
+<th align="right">ENMO_mg</th>
+<th align="right">hildebrand_linear</th>
+<th align="right">hildebrand_nonlinear</th>
+<th align="right">hibbing_left</th>
+<th align="right">hibbing_right</th>
+<th align="right">montoye_left</th>
+<th align="right">montoye_right</th>
+<th align="right">staudenmayer_lm</th>
+<th align="right">staudenmayer_rf</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2019-09-17 18:40:00</td>
+<td align="right">-0.8564652</td>
+<td align="right">0.1800915</td>
+<td align="right">0.3399457</td>
+<td align="right">1.645593</td>
+<td align="right">688.42025</td>
+<td align="right">0.0776331</td>
+<td align="right">0.0792006</td>
+<td align="right">0.0838148</td>
+<td align="right">0.0836703</td>
+<td align="right">0.0800848</td>
+<td align="right">0.1050642</td>
+<td align="right">0.1633019</td>
+<td align="right">0.0703252</td>
+</tr>
+<tr class="even">
+<td align="left">2019-09-17 18:41:00</td>
+<td align="right">-0.6346995</td>
+<td align="right">1.0086462</td>
+<td align="right">0.5164685</td>
+<td align="right">1.685206</td>
+<td align="right">708.16089</td>
+<td align="right">0.1070825</td>
+<td align="right">0.1117054</td>
+<td align="right">0.1208968</td>
+<td align="right">0.1302841</td>
+<td align="right">0.0655763</td>
+<td align="right">0.0932124</td>
+<td align="right">0.1160207</td>
+<td align="right">0.0861830</td>
+</tr>
+<tr class="odd">
+<td align="left">2019-09-17 18:42:00</td>
+<td align="right">-0.3916835</td>
+<td align="right">0.8530120</td>
+<td align="right">0.5038665</td>
+<td align="right">1.141492</td>
+<td align="right">183.34091</td>
+<td align="right">0.0639203</td>
+<td align="right">0.0700443</td>
+<td align="right">0.0738617</td>
+<td align="right">0.0836024</td>
+<td align="right">0.0505405</td>
+<td align="right">0.0667929</td>
+<td align="right">0.0646504</td>
+<td align="right">0.0761848</td>
+</tr>
+<tr class="even">
+<td align="left">2019-09-17 18:43:00</td>
+<td align="right">-0.3844428</td>
+<td align="right">0.8275600</td>
+<td align="right">0.5240558</td>
+<td align="right">1.100549</td>
+<td align="right">150.39621</td>
+<td align="right">0.0587946</td>
+<td align="right">0.0631705</td>
+<td align="right">0.0619429</td>
+<td align="right">0.0746901</td>
+<td align="right">0.0472104</td>
+<td align="right">0.0565958</td>
+<td align="right">0.0631195</td>
+<td align="right">0.0716907</td>
+</tr>
+<tr class="odd">
+<td align="left">2019-09-17 18:44:00</td>
+<td align="right">-0.8493325</td>
+<td align="right">-0.1674640</td>
+<td align="right">0.0766567</td>
+<td align="right">1.017237</td>
+<td align="right">27.76878</td>
+<td align="right">0.0205919</td>
+<td align="right">0.0229740</td>
+<td align="right">0.0270425</td>
+<td align="right">0.0266269</td>
+<td align="right">0.0311238</td>
+<td align="right">0.0374416</td>
+<td align="right">0.0284692</td>
+<td align="right">0.0248229</td>
+</tr>
+<tr class="even">
+<td align="left">2019-09-17 18:45:00</td>
+<td align="right">-0.9880000</td>
+<td align="right">-0.2270000</td>
+<td align="right">-0.0200000</td>
+<td align="right">1.013939</td>
+<td align="right">13.93935</td>
+<td align="right">0.0145860</td>
+<td align="right">0.0178881</td>
+<td align="right">0.0212713</td>
+<td align="right">0.0212713</td>
+<td align="right">0.0201839</td>
+<td align="right">0.0277541</td>
+<td align="right">0.0170170</td>
+<td align="right">0.0170170</td>
+</tr>
+</tbody>
+</table>
+<p>So far, this gives us minute-by-minute summaries of accelerometer
+variables, plus estimates of energy expenditure (kcal/kg) for the
+different methods. Next, we need to account for non-wear and sleep. If
+you have a file with <code>agd</code> extension, you can use syntax just
+like the above to acquire that information. For example, you might run
+<code>agd_data &lt;- accelEE::ee_file(filename = "myfolder/myfile.agd", scheme = "Hibbing 2023")</code>.
+R will recognize that it is an <code>agd</code> file and not a
+<code>gt3x</code> file, and it will then run the desired non-wear and
+sleep procedures instead of generating estimates of energy
+expenditure.</p>
+<p>For this example, though, we don’t have a built in <code>agd</code>
+file. Instead, we’ll just make up some activity count data. (You’re
+welcome to run the below code if you’re following along with this
+example, but in an actual application, as described previously, you
+would use an <code>agd</code> file rather than completing this
+step.)</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Set a starting point for the random number generator so that sampling is</span></span>
+<span id="cb6-3"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="do">## repeatable when generating the `Axis1` and `valid_status` columns</span></span>
+<span id="cb6-4"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">610</span>)</span>
+<span id="cb6-5"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Now generate the sleep/non-wear dataframe</span></span>
+<span id="cb6-7"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb6-7" aria-hidden="true" tabindex="-1"></a>agd_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb6-8"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">Timestamp =</span> ex_data<span class="sc">$</span>Timestamp,</span>
+<span id="cb6-9"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Axis1 =</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">200</span>, <span class="dv">3200</span>, <span class="cn">TRUE</span>, <span class="fu">exp</span>(<span class="fu">rnorm</span>(<span class="dv">201</span>, <span class="fu">log</span>(<span class="dv">30</span>), <span class="fu">log</span>(<span class="dv">5</span>)))),</span>
+<span id="cb6-10"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">Axis2 =</span> <span class="dv">0</span>,</span>
+<span id="cb6-11"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">Axis3 =</span> <span class="dv">0</span>,</span>
+<span id="cb6-12"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">valid_status =</span> <span class="fu">sample</span>(</span>
+<span id="cb6-13"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">"Awake-Wear"</span>, <span class="st">"Non-Wear"</span>, <span class="st">"Sleep"</span>),</span>
+<span id="cb6-14"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="dv">3200</span>,</span>
+<span id="cb6-15"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span>,</span>
+<span id="cb6-16"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">14</span>)</span>
+<span id="cb6-17"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb6-17" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-18"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb6-18" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Once we have data related to both energy expenditure
+(<code>.gt3x</code> origin) and sleep/non-wear (<code>.agd</code>
+origin), we can merge the two together and get a daily summary:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-2"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb7-2" aria-hidden="true" tabindex="-1"></a>full_data <span class="ot">&lt;-</span> <span class="fu">merge</span>(ex_data, agd_data)</span>
+<span id="cb7-3"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb7-4" aria-hidden="true" tabindex="-1"></a>ee_data <span class="ot">&lt;-</span> accelEE<span class="sc">::</span><span class="fu">ee_summary</span>(full_data, <span class="at">scheme =</span> <span class="st">"Hibbing 2023"</span>)</span>
+<span id="cb7-5"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb7-6" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(ee_data)</span></code></pre></div>
+<table style="width:100%;">
+<colgroup>
+<col width="4%">
+<col width="5%">
+<col width="9%">
+<col width="10%">
+<col width="7%">
+<col width="7%">
+<col width="7%">
+<col width="7%">
+<col width="8%">
+<col width="8%">
+<col width="4%">
+<col width="4%">
+<col width="4%">
+<col width="5%">
+<col width="6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Date</th>
+<th align="right">total_minutes</th>
+<th align="right">total_hildebrand_linear</th>
+<th align="right">total_hildebrand_nonlinear</th>
+<th align="right">total_hibbing_left</th>
+<th align="right">total_hibbing_right</th>
+<th align="right">total_montoye_left</th>
+<th align="right">total_montoye_right</th>
+<th align="right">total_staudenmayer_lm</th>
+<th align="right">total_staudenmayer_rf</th>
+<th align="right">total_Axis1</th>
+<th align="right">total_Axis2</th>
+<th align="right">total_Axis3</th>
+<th align="right">total_is_Sleep</th>
+<th align="right">total_is_NonWear</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2019-09-18</td>
+<td align="right">1440</td>
+<td align="right">2.536927</td>
+<td align="right">2.892719</td>
+<td align="right">3.382906</td>
+<td align="right">3.486795</td>
+<td align="right">3.440164</td>
+<td align="right">4.036298</td>
+<td align="right">3.208864</td>
+<td align="right">3.011168</td>
+<td align="right">11901</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">828</td>
+<td align="right">490</td>
+</tr>
+<tr class="even">
+<td align="left">2019-09-19</td>
+<td align="right">1440</td>
+<td align="right">2.512302</td>
+<td align="right">2.876073</td>
+<td align="right">3.361450</td>
+<td align="right">3.471130</td>
+<td align="right">3.412406</td>
+<td align="right">4.015132</td>
+<td align="right">3.158153</td>
+<td align="right">2.979310</td>
+<td align="right">11976</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">816</td>
+<td align="right">500</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="phase-2.-getting-total-daily-energy-expenditure-from-the-wearable-data" class="section level4">
+<h4>Phase 2. Getting total daily energy expenditure from the wearable
+data</h4>
+<p>The previous step gave us daily estimates of total energy
+expenditure, expressed relative to body mass (kcal/kg) and exclusively
+reflecting measurement during awake wear time. To calculate total
+(absolute) energy expenditure for the full day (including
+sleep/non-wear), we need to bring in our body composition data and make
+another calculation or two.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-2"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">## First, let's get our body composition data. We'll pretend it's the first row</span></span>
+<span id="cb8-3"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="do">## of the `info` data frame we created earlier. We'll remove the `ee` column to</span></span>
+<span id="cb8-4"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="do">## avoid confusion, and we'll also assign an ID label of `001` and a body mass</span></span>
+<span id="cb8-5"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">## of 87 kg</span></span>
+<span id="cb8-6"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-7" aria-hidden="true" tabindex="-1"></a>  body_comp <span class="ot">&lt;-</span> info[<span class="dv">1</span>, ]</span>
+<span id="cb8-8"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-8" aria-hidden="true" tabindex="-1"></a>  body_comp<span class="sc">$</span>ee <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb8-9"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-9" aria-hidden="true" tabindex="-1"></a>  body_comp<span class="sc">$</span>wt_kg <span class="ot">&lt;-</span> <span class="dv">87</span></span>
+<span id="cb8-10"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-12"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Next, let's determine a Schofield prediction of basal metabolism to impute</span></span>
+<span id="cb8-13"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="do">## during periods of sleep/non-wear</span></span>
+<span id="cb8-14"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-15" aria-hidden="true" tabindex="-1"></a>  body_comp<span class="sc">$</span>schofield <span class="ot">&lt;-</span> PAutilities<span class="sc">::</span><span class="fu">get_ree</span>(</span>
+<span id="cb8-16"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"schofield_wt_ht"</span>, <span class="at">sex =</span> <span class="st">"M"</span>, <span class="at">age_yr =</span> <span class="dv">55</span>,</span>
+<span id="cb8-17"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">wt_kg =</span> <span class="dv">87</span>, <span class="at">ht_m =</span> <span class="fl">1.85</span>, <span class="at">output =</span> <span class="st">"kcal_day"</span></span>
+<span id="cb8-18"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-18" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-19"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="do">## It's time to merge the body composition and energy expenditure data</span></span>
+<span id="cb8-22"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-23" aria-hidden="true" tabindex="-1"></a>  ei_data <span class="ot">&lt;-</span> <span class="fu">merge</span>(body_comp, ee_data)</span>
+<span id="cb8-24"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-25"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-26"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="do">## Next, we want to take our EE estimates (kcal/kg for awake wear periods) and</span></span>
+<span id="cb8-27"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="do">## convert them to total EE (i.e., no longer relative to body weight, and</span></span>
+<span id="cb8-28"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="do">## imputing basal metabolic expenditure for periods of sleep/non-wear).</span></span>
+<span id="cb8-29"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-30"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="do">## To do this, we'll use some functions from the `dplyr` package. Note that you</span></span>
+<span id="cb8-31"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="do">## can interpret the `%&gt;%` operator as meaning 'next do ____' or 'then do ___'.</span></span>
+<span id="cb8-32"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-33"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="do">## The `%&lt;&gt;%` operator is for assignment (i.e., saves output to the `ei_data` object).</span></span>
+<span id="cb8-34"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-35"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(dplyr))</span>
+<span id="cb8-36"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-36" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-37"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-37" aria-hidden="true" tabindex="-1"></a>  ei_data <span class="sc">%&lt;&gt;%</span></span>
+<span id="cb8-38"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
+<span id="cb8-39"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-39" aria-hidden="true" tabindex="-1"></a>      total_hildebrand_linear<span class="sc">:</span>total_staudenmayer_rf,</span>
+<span id="cb8-40"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-40" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span> .x <span class="sc">*</span> wt_kg <span class="sc">+</span> schofield <span class="sc">*</span> ((total_is_NonWear <span class="sc">+</span> total_is_Sleep) <span class="sc">/</span> <span class="dv">1440</span>),</span>
+<span id="cb8-41"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-41" aria-hidden="true" tabindex="-1"></a>      <span class="at">.names =</span> <span class="st">"{gsub(</span><span class="sc">\"</span><span class="st">^total</span><span class="sc">\"</span><span class="st">, </span><span class="sc">\"</span><span class="st">EE</span><span class="sc">\"</span><span class="st">, .col)}"</span></span>
+<span id="cb8-42"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-42" aria-hidden="true" tabindex="-1"></a>    )) <span class="sc">%&gt;%</span></span>
+<span id="cb8-43"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(</span>
+<span id="cb8-44"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-44" aria-hidden="true" tabindex="-1"></a>      <span class="fu">any_of</span>(<span class="fu">names</span>(body_comp)),</span>
+<span id="cb8-45"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-45" aria-hidden="true" tabindex="-1"></a>      <span class="sc">!</span><span class="fu">c</span>(Date, total_hildebrand_linear<span class="sc">:</span>total_staudenmayer_rf)</span>
+<span id="cb8-46"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-46" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb8-47"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(<span class="fu">across</span>(<span class="fu">any_of</span>(<span class="fu">names</span>(body_comp)))) <span class="sc">%&gt;%</span></span>
+<span id="cb8-48"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="fu">across</span>(</span>
+<span id="cb8-49"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-49" aria-hidden="true" tabindex="-1"></a>      <span class="fu">everything</span>(), mean, <span class="at">.names =</span> <span class="st">"{gsub(</span><span class="sc">\"</span><span class="st">^total</span><span class="sc">\"</span><span class="st">, </span><span class="sc">\"</span><span class="st">mean</span><span class="sc">\"</span><span class="st">, .col)}"</span></span>
+<span id="cb8-50"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-50" aria-hidden="true" tabindex="-1"></a>    ), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
+<span id="cb8-51"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-52"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-52" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-53"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb8-53" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(ei_data)</span></code></pre></div>
+<table>
+<colgroup>
+<col width="1%">
+<col width="3%">
+<col width="2%">
+<col width="3%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="3%">
+<col width="4%">
+<col width="3%">
+<col width="3%">
+<col width="3%">
+<col width="4%">
+<col width="5%">
+<col width="7%">
+<col width="8%">
+<col width="5%">
+<col width="5%">
+<col width="5%">
+<col width="5%">
+<col width="6%">
+<col width="6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">PID</th>
+<th align="right">fm_start</th>
+<th align="right">fm_end</th>
+<th align="right">ffm_start</th>
+<th align="right">ffm_end</th>
+<th align="right">n_days</th>
+<th align="right">wt_kg</th>
+<th align="right">schofield</th>
+<th align="right">mean_minutes</th>
+<th align="right">mean_Axis1</th>
+<th align="right">mean_Axis2</th>
+<th align="right">mean_Axis3</th>
+<th align="right">mean_is_Sleep</th>
+<th align="right">mean_is_NonWear</th>
+<th align="right">EE_hildebrand_linear</th>
+<th align="right">EE_hildebrand_nonlinear</th>
+<th align="right">EE_hibbing_left</th>
+<th align="right">EE_hibbing_right</th>
+<th align="right">EE_montoye_left</th>
+<th align="right">EE_montoye_right</th>
+<th align="right">EE_staudenmayer_lm</th>
+<th align="right">EE_staudenmayer_rf</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">001</td>
+<td align="right">50.5</td>
+<td align="right">50.7</td>
+<td align="right">75.1</td>
+<td align="right">74.9</td>
+<td align="right">14</td>
+<td align="right">87</td>
+<td align="right">1870.377</td>
+<td align="right">1440</td>
+<td align="right">11938.5</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">822</td>
+<td align="right">495</td>
+<td align="right">1930.257</td>
+<td align="right">1961.558</td>
+<td align="right">2003.995</td>
+<td align="right">2013.286</td>
+<td align="right">2008.703</td>
+<td align="right">2060.853</td>
+<td align="right">1987.581</td>
+<td align="right">1971.202</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb9-1" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Note that the `n_days` column refers to the number of days between</span></span>
+<span id="cb9-2"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## body composition measurements, not necessarily the number of days of</span></span>
+<span id="cb9-3"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="do">## accelerometer data included in the analysis (n = 2 in this case)</span></span>
+<span id="cb9-4"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb9-4" aria-hidden="true" tabindex="-1"></a>  </span></code></pre></div>
+</div>
+<div id="phase-3.-calculate-ei" class="section level4">
+<h4>Phase 3. Calculate EI</h4>
+<p>At this point, we are ready for the rest of our calculations.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Generate the result</span></span>
+<span id="cb10-2"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb10-2" aria-hidden="true" tabindex="-1"></a>ei_result <span class="ot">&lt;-</span></span>
+<span id="cb10-3"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb10-3" aria-hidden="true" tabindex="-1"></a>  ei_data <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
+<span id="cb10-5"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb10-5" aria-hidden="true" tabindex="-1"></a>    EE_hildebrand_linear<span class="sc">:</span>EE_staudenmayer_rf,</span>
+<span id="cb10-6"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span> IntakeBalance<span class="sc">::</span><span class="fu">IntakeBalance</span>(</span>
+<span id="cb10-7"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb10-7" aria-hidden="true" tabindex="-1"></a>      fm_start, fm_end, ffm_start, ffm_end, <span class="at">ee_per_day =</span> .x</span>
+<span id="cb10-8"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb10-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb10-9"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">.names =</span> <span class="st">"{gsub(</span><span class="sc">\"</span><span class="st">^EE</span><span class="sc">\"</span><span class="st">, </span><span class="sc">\"</span><span class="st">EI</span><span class="sc">\"</span><span class="st">, .col)}"</span></span>
+<span id="cb10-10"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb10-10" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb10-11"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Show the result</span></span>
+<span id="cb10-13"><a href="file:///C:/Users/prhibbing/AppData/Local/Temp/RtmpAHWgMO/preview-59c81e4834d3.dir/IntakeBalance.html#cb10-13" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(ei_result)</span></code></pre></div>
+<table>
+<colgroup>
+<col width="0%">
+<col width="2%">
+<col width="1%">
+<col width="2%">
+<col width="1%">
+<col width="1%">
+<col width="1%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="3%">
+<col width="3%">
+<col width="4%">
+<col width="5%">
+<col width="3%">
+<col width="3%">
+<col width="3%">
+<col width="3%">
+<col width="4%">
+<col width="4%">
+<col width="4%">
+<col width="5%">
+<col width="3%">
+<col width="3%">
+<col width="3%">
+<col width="3%">
+<col width="4%">
+<col width="4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">PID</th>
+<th align="right">fm_start</th>
+<th align="right">fm_end</th>
+<th align="right">ffm_start</th>
+<th align="right">ffm_end</th>
+<th align="right">n_days</th>
+<th align="right">wt_kg</th>
+<th align="right">schofield</th>
+<th align="right">mean_minutes</th>
+<th align="right">mean_Axis1</th>
+<th align="right">mean_Axis2</th>
+<th align="right">mean_Axis3</th>
+<th align="right">mean_is_Sleep</th>
+<th align="right">mean_is_NonWear</th>
+<th align="right">EE_hildebrand_linear</th>
+<th align="right">EE_hildebrand_nonlinear</th>
+<th align="right">EE_hibbing_left</th>
+<th align="right">EE_hibbing_right</th>
+<th align="right">EE_montoye_left</th>
+<th align="right">EE_montoye_right</th>
+<th align="right">EE_staudenmayer_lm</th>
+<th align="right">EE_staudenmayer_rf</th>
+<th align="right">EI_hildebrand_linear</th>
+<th align="right">EI_hildebrand_nonlinear</th>
+<th align="right">EI_hibbing_left</th>
+<th align="right">EI_hibbing_right</th>
+<th align="right">EI_montoye_left</th>
+<th align="right">EI_montoye_right</th>
+<th align="right">EI_staudenmayer_lm</th>
+<th align="right">EI_staudenmayer_rf</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">001</td>
+<td align="right">50.5</td>
+<td align="right">50.7</td>
+<td align="right">75.1</td>
+<td align="right">74.9</td>
+<td align="right">14</td>
+<td align="right">87</td>
+<td align="right">1870.377</td>
+<td align="right">1440</td>
+<td align="right">11938.5</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">822</td>
+<td align="right">495</td>
+<td align="right">1930.257</td>
+<td align="right">1961.558</td>
+<td align="right">2003.995</td>
+<td align="right">2013.286</td>
+<td align="right">2008.703</td>
+<td align="right">2060.853</td>
+<td align="right">1987.581</td>
+<td align="right">1971.202</td>
+<td align="right">3626.257</td>
+<td align="right">3657.558</td>
+<td align="right">3699.995</td>
+<td align="right">3709.286</td>
+<td align="right">3704.703</td>
+<td align="right">3756.853</td>
+<td align="right">3683.581</td>
+<td align="right">3667.202</td>
+</tr>
+</tbody>
+</table>
+<p>Voila! The data frame now has new columns that specify EI estimates
+for each of the accelerometer-based methods.</p>
+</div>
+</div>
+<div id="conclusion" class="section level2">
+<h2>Conclusion</h2>
+<p>Hopefully this introduction to the <code>IntakeBalance</code> package
+makes it less intimidating and gets you on your way with implementing it
+in your own research. Although there is a lot of code in the above
+examples (reflecting several steps you need to implement on your own),
+it is substantially less than the number of operations you would have to
+perform by hand in order to achieve the same outcome. With a little
+tweaking for your own projects, our hope is that this could result in
+stronger analyses, better quality control, and eventually time saved as
+you grow more familiar with using this tool. As noted previously, please
+<a href="https://github.com/paulhibbing/IntakeBalance/issues/new/choose">let
+us know if we can improve this vignette</a> or anything else about
+<code>IntakeBalance</code> to make it more inviting and accessible. We
+believe that tools like these have a strong potential to advance science
+in the coming years, so we want to provide as much support as we can for
+increasing their uptake. Thanks for your interest, and we wish you the
+best with using <code>IntakeBalance</code>!</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+
+</body></html>
