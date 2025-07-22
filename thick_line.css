@@ -1,11 +1,10 @@
 hr {
   display: block;
-  margin-top: 0em;
-  margin-bottom: 0em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
   margin-left: auto;
   margin-right: auto;
   border-style: none;
-  border-width: 0em;
   height: 3px;
   background-color: black;
 }
